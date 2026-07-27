@@ -21,7 +21,7 @@ header=$(readelf -h "$file_name")
 
 magic_number=$(echo "$header" | grep "Magic:" | awk -F':' '{print $2}' | xargs)
 class=$(echo "$header" | grep "Class:" | awk -F':' '{print $2}' | xargs)
-byte_order=$(echo "$header" | grep "Data:" | awk -F':' '{print $2}' | xargs)
+byte_order=$(echo "$header" | grep "Data:" | grep -oE "little endian|big endian")
 entry_point_address=$(echo "$header" | grep "Entry point address:" | awk -F':' '{print $2}' | xargs)
 
 source ./messages.sh
